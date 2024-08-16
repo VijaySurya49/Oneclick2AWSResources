@@ -7,33 +7,43 @@
 ![Click2AWSResource](https://github.com/user-attachments/assets/52eeadf6-e839-45bc-97b2-c647843d7025)
 
 **Architecture Diagram Description:**
+  
   **1. User Interface (UI):**
     **Input:** Users provide details such as VPC ID, subnet ID, instance type, PEM key, etc.
     **Action:** Submit the request.
+  
   **2. Queue:**
     **Purpose:** Store the submitted requests temporarily until they are approved.
     **Flow:** The request moves from the UI to this queue.
+  
   **3. Approver Component:**
     **Action:** An approver reviews the requests.
     **Flow:** Upon approval, the request moves to the approved queue.
+  
   **4. Approved Queue:**
     **Purpose:** Store the approved requests.
     **Flow:** Approved requests are then picked up by the Python script.
+  
   **5. TeamCity Server:**
     **Process:** Runs a Python script to handle the approved requests.
       **Step 1:** Retrieve the approved requests and save the details in a CSV file (acting as a database).
       **Step 2:** Read the CSV file to create a Terraform variable configuration file.
       **Step 3:** Push the configuration file to a Bitbucket repository.
+  
   **6. Bitbucket Repository:**
     **Action:** Receives the Terraform variable configuration file.
     **Trigger:** Any change in the Bitbucket repository triggers a code build.
+  
   **7. Code Build System:**
     **Action:** Executes the build process to create an AWS EC2 instance based on the Terraform configuration.
     **Flow:** Once the EC2 instance is created, the instance details are captured.
+  
   **8. EC2 Instance Creation:**
     **Output:** Instance details such as instance name and ID.
     **Flow:** These details are saved back to the CSV file.
+  
   **9. CSV File (Database):**
     **Update:** Store instance details after EC2 creation.
+  
   **10. Email Notification System:**
     **Action:** Sends an email to the user with the instance details, including instance name and ID.

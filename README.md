@@ -1,9 +1,9 @@
 # Oneclick2AWSResources: End to End Pipeline for AWS Resource Creation 
 **Oneclick2AWSResources** is a web-based application where users submit details like VPC ID, subnet ID, instance type, PEM key, etc(required parameters for AWS resourcecreation here we took ec2 creation as example). The submission is added to a queue, and after the request is approved by an approver, it moves to an approved queue and generates a JSON response. A Python script running on TeamCity then processes this JSON response, saving the details in a CSV file, which you are using as a database.Within the same Python script, another function reads the CSV file and generates a Terraform variable configuration file, which is then pushed to Bitbucket. Any changes in Bitbucket trigger a code build that automatically creates an EC2 instance. After the instance is successfully created, the instance details, such as the instance name and instance ID, are saved back into the CSV file. Finally, an email is sent to the user with the instance details.
 
-**Data Flow:**: The flow starts from the User Interface and goes through Queue → Approver Component → Approved Queue → TeamCity Server → Bitbucket Repository → Code Build System → EC2 Instance Creation → CSV File Update → Email Notification.
+**Data Flow:** The flow starts from the User Interface and goes through Queue → Approver Component → Approved Queue → TeamCity Server → Bitbucket Repository → Code Build System → EC2 Instance Creation → CSV File Update → Email Notification.
 
-**Architecture Diagram**
+**Architecture Diagram:**
 ![Click2AWSResource](https://github.com/user-attachments/assets/52eeadf6-e839-45bc-97b2-c647843d7025)
 
 **Architecture Diagram Description:**

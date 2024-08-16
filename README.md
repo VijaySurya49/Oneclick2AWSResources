@@ -25,9 +25,13 @@
     **Flow:** Approved requests are then picked up by the Python script.
   
   **5. TeamCity Server:**
+  
     **Process:** Runs a Python script to handle the approved requests.
+      
       **Step 1:** Retrieve the approved requests and save the details in a CSV file (acting as a database).
+      
       **Step 2:** Read the CSV file to create a Terraform variable configuration file.
+      
       **Step 3:** Push the configuration file to a Bitbucket repository.
   
   **6. Bitbucket Repository:**
